@@ -844,11 +844,11 @@ func parseTrailerDict(trailerDict Dict, ctx *Context, offCurXRef *int64) (*int64
 	if offsetXRefStream == nil {
 		// No cross reference stream.
 		if !ctx.Reader15 && xRefTable.Version() >= V14 && !ctx.Read.Hybrid {
-			return nil, errors.Errorf("parseTrailerDict: PDF1.4 conformant reader: found incompatible version: %s", xRefTable.VersionString())
+			//return nil, errors.Errorf("parseTrailerDict: PDF1.4 conformant reader: found incompatible version: %s", xRefTable.VersionString())
 		}
 		log.Read.Println("parseTrailerDict end")
 		// continue to parse previous xref section, if there is any.
-		return offset, nil
+		//return offset, nil
 	}
 
 	// This file is using cross reference streams.
@@ -862,7 +862,7 @@ func parseTrailerDict(trailerDict Dict, ctx *Context, offCurXRef *int64) (*int64
 	// in XRefStm before continuing to process any previous XRefSection.
 	// Previous XRefSection is expected to have free entries for hidden entries.
 	// May appear in XRefSections only.
-	if ctx.Reader15 {
+	if ctx.Reader15 && offsetXRefStream != nil {
 		if err := parseHybridXRefStream(offsetXRefStream, ctx); err != nil {
 			return nil, err
 		}
