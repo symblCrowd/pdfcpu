@@ -1123,6 +1123,7 @@ func headerVersion(rs io.ReadSeeker, headerBufSize int) (v *Version, eolCount in
 
 	s := string(buf[:n])
 	if len(s) < 8 {
+		//s = "%PDF-1.4"
 		return nil, 0, errCorruptHeader
 	}
 
